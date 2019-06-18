@@ -73,6 +73,7 @@ class App extends React.Component {
         <>
           <div className="App">
             <div
+              className
               style={{
                 width: "600px",
                 height: "350px"
