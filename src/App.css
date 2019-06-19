@@ -20,11 +20,6 @@
   color: #61dafb;
 }
 
-.tutorial {
-  background-image: url("./assets/Tutorial.png");
-  background-position: 600px 350px;
-}
-
 .board {
   position: relative;
   border: 15px solid transparent;
@@ -44,5 +39,19 @@ div.board {
   border-radius: 5px;
 }
 
-.abilities > div {
+.combatFrameLeft {
+  /* display: flex;
+  flex-direction: column; */
+  float: left;
+}
+
+.combatFrameRight {
+  /* display: flex;
+  flex-direction: column; */
+  float: right;
+}
+
+.abilities > div:hover {
+  color: red;
+  cursor: pointer;
 }

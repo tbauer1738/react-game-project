@@ -1,5 +1,5 @@
 let initialState = {
-  characterCreated: true,
+  characterCreated: false,
   level: 1
 };
 
