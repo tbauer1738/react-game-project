@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import toon from "../assets/toon.png";
+import toon from "../assets/actual_toon.png";
 import toon2 from "../assets/toon2.png";
 import { characterCreationAction } from "../redux/actions";
 
@@ -59,7 +59,7 @@ class CharacterCreation extends React.Component {
         />
         <input
           type="button"
-          value="toon1"
+          value="toon"
           onClick={e => this.handleSpriteSelection(e)}
         />
         <img
