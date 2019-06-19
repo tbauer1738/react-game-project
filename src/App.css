@@ -24,3 +24,12 @@
   background-image: url("./assets/Tutorial.png");
   background-position: 600px 350px;
 }
+
+.board {
+  position: relative;
+  border: 5px red solid;
+}
+
+div.board {
+  position: absolute;
+}

@@ -9,6 +9,7 @@ import CharacterCreation from "./components/CharacterCreation";
 import dungeon_tile from "./assets/dungeon_tile.png";
 import dungeon_tiles from "./assets/dungeon_tiles.png";
 import Tutorial from "./assets/Tutorial.png";
+import Level1 from "./components/Level1";
 
 const mapStateToProps = state => ({
   ...state
@@ -21,7 +22,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       player: {
-        position: [46, 92]
+        position: [0, 0]
       }
     };
   }
@@ -50,14 +51,26 @@ class App extends React.Component {
   };
 
   handlePlayerMovement = dirObj => {
-    this.setState({
-      player: {
-        position: [
-          this.state.player.position[0] + dirObj.left,
-          this.state.player.position[1] + dirObj.top
-        ]
-      }
-    });
+    console.log("dirObj: ", dirObj);
+
+    if ((this.state.player.position[1] <= 0) & (dirObj.top < 0)) {
+      return;
+    } else if ((this.state.player.position[1] >= 276) & (dirObj.top > 0)) {
+      return;
+    } else if ((this.state.player.position[0] <= 0) & (dirObj.left < 0)) {
+      return;
+    } else if ((this.state.player.position[0] >= 552) & (dirObj.left > 0)) {
+      return;
+    } else {
+      this.setState({
+        player: {
+          position: [
+            this.state.player.position[0] + dirObj.left,
+            this.state.player.position[1] + dirObj.top
+          ]
+        }
+      });
+    }
   };
 
   componentDidMount() {
@@ -65,97 +78,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.gameReducer.characterCreated === false) {
       return <CharacterCreation />;
     } else {
       return (
         <>
-          <div className="App">
-            <div
-              className
-              style={{
-                width: "600px",
-                height: "350px"
-              }}
-            >
-              <div
-                style={{
-                  position: "relative",
-                  top: this.state.player.position[1],
-                  left: this.state.player.position[0],
-                  width: "46px",
-                  height: "46px"
-                }}
-              >
-                <img
-                  src={
-                    this.props.playerReducer.toon === "toon1" ? toon1 : toon2
-                  }
-                  alt="toon"
-                  style={{
-                    width: "46px",
-                    height: "46px"
-                  }}
-                />
-              </div>
-
-              {/* <div
-                className="Tutorial"
-                style={{
-                  width: "90px",
-                  height: "95px"
-                }}
-              />
-              <div
-                className="floortile"
-                style={{
-                  width: "90px",
-                  height: "115px"
-                }}
-              /> */}
-              {/* <img
-                src={tile70x70}
-                alt="toon"
-                style={{
-                  width: "140px",
-                  height: "140px"
-                }}
-              />
-              <img
-                src={tile70x70}
-                alt="toon"
-                style={{
-                  width: "140px",
-                  height: "140px"
-                }}
-              />
-              <img
-                src={tile70x70}
-                alt="toon"
-                style={{
-                  width: "140px",
-                  height: "140px"
-                }}
-              />
-              <img
-                src={tile70x70}
-                alt="toon"
-                style={{
-                  width: "140px",
-                  height: "140px"
-                }}
-              />
-              <img
-                src={tile70x70}
-                alt="toon"
-                style={{
-                  width: "140px",
-                  height: "140px"
-                }}
-              /> */}
-            </div>
-          </div>
+          <Level1 playerPosition={this.state.player.position} />
         </>
       );
     }
