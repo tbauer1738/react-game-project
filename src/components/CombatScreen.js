@@ -21,8 +21,8 @@ class CombatScreen extends React.Component {
           xpWorth: 50,
           abilities: [
             {
-              name: "Struggle",
-              damage: 0
+              name: "Slap",
+              damage: 10
             },
             {
               name: "Struggle",
@@ -35,7 +35,8 @@ class CombatScreen extends React.Component {
           ]
         }
       },
-      combatLog: []
+      combatLogPlayer: [],
+      combatLogEnemy: []
     };
   }
 
@@ -49,16 +50,16 @@ class CombatScreen extends React.Component {
       console.log("Oh dear, you're dead!");
       this.setState({
         playersTurn: true,
-        combatLog: [
-          ...this.state.combatLog,
+        combatLogEnemy: [
+          ...this.state.combatLogEnemy,
           { name: randomAbility.name, damage: randomAbility.damage }
         ]
       });
     } else {
       this.setState({
         playersTurn: true,
-        combatLog: [
-          ...this.state.combatLog,
+        combatLogEnemy: [
+          ...this.state.combatLogEnemy,
           { name: randomAbility.name, damage: randomAbility.damage }
         ]
       });
@@ -75,8 +76,8 @@ class CombatScreen extends React.Component {
               health: 0
             }
           },
-          combatLog: [
-            ...this.state.combatLog,
+          combatLogPlayer: [
+            ...this.state.combatLogPlayer,
             { name: abilityName, damage: abilityDamage }
           ]
         });
@@ -90,8 +91,8 @@ class CombatScreen extends React.Component {
                 health: this.state.enemies.enemy1.health - abilityDamage
               }
             },
-            combatLog: [
-              ...this.state.combatLog,
+            combatLogPlayer: [
+              ...this.state.combatLogPlayer,
               { name: abilityName, damage: abilityDamage }
             ]
           },
@@ -136,10 +137,20 @@ class CombatScreen extends React.Component {
           </div>
         </div>
         <div className="combatLog">
-          {this.state.combatLog.map(action => {
+          {this.state.combatLogPlayer.map(action => {
             return (
               <div>
                 {this.props.playerReducer.name} used {action.name} for&nbsp;
+                {action.damage} damage!
+              </div>
+            );
+          })}
+        </div>
+        <div className="combatLog">
+          {this.state.combatLogEnemy.map(action => {
+            return (
+              <div>
+                Enemy used {action.name} for&nbsp;
                 {action.damage} damage!
               </div>
             );
