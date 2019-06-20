@@ -23,6 +23,14 @@ class CombatScreen extends React.Component {
             {
               name: "Struggle",
               damage: 0
+            },
+            {
+              name: "Struggle",
+              damage: 0
+            },
+            {
+              name: "Struggle",
+              damage: 0
             }
           ]
         }
@@ -30,6 +38,68 @@ class CombatScreen extends React.Component {
       combatLog: []
     };
   }
+
+  handleEnemyAbility = () => {
+    const randomAbility = this.state.enemies.enemy1.abilities[
+      Math.floor(Math.random() * 3)
+    ];
+    console.log("randomAbility: ", randomAbility);
+
+    if (randomAbility.damage >= this.props.playerReducer.health) {
+      console.log("Oh dear, you're dead!");
+      this.setState({
+        playersTurn: true,
+        combatLog: [
+          ...this.state.combatLog,
+          { name: randomAbility.name, damage: randomAbility.damage }
+        ]
+      });
+    } else {
+      this.setState({
+        playersTurn: true,
+        combatLog: [
+          ...this.state.combatLog,
+          { name: randomAbility.name, damage: randomAbility.damage }
+        ]
+      });
+    }
+  };
+
+  handlePlayerAbility = (e, abilityName, abilityDamage) => {
+    if (this.state.playersTurn === true) {
+      if (abilityDamage >= this.state.enemies.enemy1.health) {
+        this.setState({
+          enemies: {
+            enemy1: {
+              ...this.state.enemies.enemy1,
+              health: 0
+            }
+          },
+          combatLog: [
+            ...this.state.combatLog,
+            { name: abilityName, damage: abilityDamage }
+          ]
+        });
+      } else {
+        this.setState(
+          {
+            playersTurn: false,
+            enemies: {
+              enemy1: {
+                ...this.state.enemies.enemy1,
+                health: this.state.enemies.enemy1.health - abilityDamage
+              }
+            },
+            combatLog: [
+              ...this.state.combatLog,
+              { name: abilityName, damage: abilityDamage }
+            ]
+          },
+          this.handleEnemyAbility
+        );
+      }
+    }
+  };
 
   handleDamage = () => {};
 
@@ -52,7 +122,12 @@ class CombatScreen extends React.Component {
           <div className="abilities">
             {this.props.playerReducer.abilities.map(ability => {
               return (
-                <div value={ability.name}>
+                <div
+                  value={ability.name}
+                  onClick={e =>
+                    this.handlePlayerAbility(e, ability.name, ability.damage)
+                  }
+                >
                   {ability.name}&nbsp; &nbsp; &nbsp; &nbsp;{" "}
                   {ability.damage.toString()}dmg <hr />
                 </div>
@@ -62,12 +137,17 @@ class CombatScreen extends React.Component {
         </div>
         <div className="combatLog">
           {this.state.combatLog.map(action => {
-            return <div>{action.name}</div>;
+            return (
+              <div>
+                {this.props.playerReducer.name} used {action.name} for&nbsp;
+                {action.damage} damage!
+              </div>
+            );
           })}
         </div>
         <div className="combatFrameRight">
           <div id="enemyHealthBar">
-            <div />
+            <div style={{ width: this.state.enemies.enemy1.health + "%" }} />
           </div>
           <img
             src={blueenemy}
@@ -81,7 +161,7 @@ class CombatScreen extends React.Component {
             {this.state.enemies.enemy1.abilities.map(ability => {
               return (
                 <div>
-                  {ability.name} &nbsp; &nbsp; &nbsp; &nbsp;{" "}
+                  {ability.name}&nbsp; &nbsp; &nbsp; &nbsp;{" "}
                   {ability.damage.toString()}dmg <hr />
                 </div>
               );
