@@ -1,7 +1,7 @@
 let initialState = {
   name: "",
   toon: null,
-  health: 100,
+  health: "100%",
   xp: 0,
   abilities: [
     {

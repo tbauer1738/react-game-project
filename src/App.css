@@ -10,6 +10,18 @@
   color: white;
 }
 
+.combatScreen {
+  background-image: url("./assets/tile_70x70.png");
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -40,18 +52,50 @@ div.board {
 }
 
 .combatFrameLeft {
-  /* display: flex;
-  flex-direction: column; */
-  float: left;
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 140px;
 }
 
 .combatFrameRight {
-  /* display: flex;
-  flex-direction: column; */
-  float: right;
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 140px;
 }
 
 .abilities > div:hover {
   color: red;
   cursor: pointer;
+}
+
+#playerHealthBar {
+  background-color: black;
+  border-radius: 13px; /* (height of inner div) / 2 + padding */
+  padding: 3px;
+  margin-bottom: 15px;
+}
+
+#playerHealthBar > div {
+  background-color: green;
+
+  height: 10px;
+  border-radius: 10px;
+}
+
+#enemyHealthBar {
+  background-color: black;
+  border-radius: 13px; /* (height of inner div) / 2 + padding */
+  padding: 3px;
+  margin-bottom: 15px;
+}
+
+#enemyHealthBar > div {
+  background-color: red;
+
+  height: 10px;
+  border-radius: 10px;
 }

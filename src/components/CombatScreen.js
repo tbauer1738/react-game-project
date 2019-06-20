@@ -14,6 +14,7 @@ class CombatScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      playersTurn: true,
       enemies: {
         enemy1: {
           health: 100,
@@ -25,15 +26,21 @@ class CombatScreen extends React.Component {
             }
           ]
         }
-      }
+      },
+      combatLog: []
     };
   }
 
+  handleDamage = () => {};
+
   render() {
     return (
-      <div className="App">
+      <div className="combatScreen">
         {" "}
         <div className="combatFrameLeft">
+          <div id="playerHealthBar">
+            <div style={{ width: this.props.playerReducer.health }} />
+          </div>
           <img
             src={this.props.playerReducer.toon === "toon" ? toon : toon2}
             alt=""
@@ -45,15 +52,23 @@ class CombatScreen extends React.Component {
           <div className="abilities">
             {this.props.playerReducer.abilities.map(ability => {
               return (
-                <div>
-                  {ability.name} &nbsp; &nbsp; &nbsp; &nbsp;{" "}
+                <div value={ability.name}>
+                  {ability.name}&nbsp; &nbsp; &nbsp; &nbsp;{" "}
                   {ability.damage.toString()}dmg <hr />
                 </div>
               );
             })}
           </div>
         </div>
+        <div className="combatLog">
+          {this.state.combatLog.map(action => {
+            return <div>{action.name}</div>;
+          })}
+        </div>
         <div className="combatFrameRight">
+          <div id="enemyHealthBar">
+            <div />
+          </div>
           <img
             src={blueenemy}
             alt=""
