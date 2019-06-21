@@ -49,7 +49,6 @@ class Level1 extends React.Component {
         ...this.state,
         inCombat: true
       });
-      console.log("found an enemy");
     }
   };
 

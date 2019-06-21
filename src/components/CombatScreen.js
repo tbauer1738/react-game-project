@@ -3,45 +3,28 @@ import { connect } from "react-redux";
 import toon from "../assets/actual_toon.png";
 import toon2 from "../assets/toon2.png";
 import blueenemy from "../assets/blue_enemy.png";
+import { handleEnemyDamage } from "../redux/actions";
 
 const mapStateToProps = state => ({
   ...state
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  handleEnemyDamage: damage => dispatch(handleEnemyDamage(damage))
+});
 
 class CombatScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       playersTurn: true,
-      enemies: {
-        enemy1: {
-          health: 100,
-          xpWorth: 50,
-          abilities: [
-            {
-              name: "Slap",
-              damage: 10
-            },
-            {
-              name: "Struggle",
-              damage: 0
-            },
-            {
-              name: "Struggle",
-              damage: 0
-            }
-          ]
-        }
-      },
       combatLogPlayer: [],
       combatLogEnemy: []
     };
   }
 
   handleEnemyAbility = () => {
-    const randomAbility = this.state.enemies.enemy1.abilities[
+    const randomAbility = this.props.enemyReducer.enemies.enemy1.abilities[
       Math.floor(Math.random() * 3)
     ];
     console.log("randomAbility: ", randomAbility);
@@ -56,6 +39,8 @@ class CombatScreen extends React.Component {
         ]
       });
     } else {
+      this.props.handleEnemyDamage(randomAbility.damage);
+
       this.setState({
         playersTurn: true,
         combatLogEnemy: [
@@ -68,11 +53,11 @@ class CombatScreen extends React.Component {
 
   handlePlayerAbility = (e, abilityName, abilityDamage) => {
     if (this.state.playersTurn === true) {
-      if (abilityDamage >= this.state.enemies.enemy1.health) {
+      if (abilityDamage >= this.props.enemyReducer.enemies.enemy1.health) {
         this.setState({
           enemies: {
             enemy1: {
-              ...this.state.enemies.enemy1,
+              ...this.props.enemyReducer.enemies.enemy1,
               health: 0
             }
           },
@@ -87,8 +72,9 @@ class CombatScreen extends React.Component {
             playersTurn: false,
             enemies: {
               enemy1: {
-                ...this.state.enemies.enemy1,
-                health: this.state.enemies.enemy1.health - abilityDamage
+                ...this.props.enemyReducer.enemies.enemy1,
+                health:
+                  this.props.enemyReducer.enemies.enemy1.health - abilityDamage
               }
             },
             combatLogPlayer: [
@@ -110,7 +96,7 @@ class CombatScreen extends React.Component {
         {" "}
         <div className="combatFrameLeft">
           <div id="playerHealthBar">
-            <div style={{ width: this.props.playerReducer.health }} />
+            <div style={{ width: this.props.playerReducer.health + "%" }} />
           </div>
           <img
             src={this.props.playerReducer.toon === "toon" ? toon : toon2}
@@ -158,7 +144,11 @@ class CombatScreen extends React.Component {
         </div>
         <div className="combatFrameRight">
           <div id="enemyHealthBar">
-            <div style={{ width: this.state.enemies.enemy1.health + "%" }} />
+            <div
+              style={{
+                width: this.props.enemyReducer.enemies.enemy1.health + "%"
+              }}
+            />
           </div>
           <img
             src={blueenemy}
@@ -169,7 +159,7 @@ class CombatScreen extends React.Component {
             }}
           />
           <div className="abilities">
-            {this.state.enemies.enemy1.abilities.map(ability => {
+            {this.props.enemyReducer.enemies.enemy1.abilities.map(ability => {
               return (
                 <div>
                   {ability.name}&nbsp; &nbsp; &nbsp; &nbsp;{" "}

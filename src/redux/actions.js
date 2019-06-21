@@ -8,3 +8,10 @@ export const characterCreationAction = (bool, charName, sprite) => dispatch => {
     }
   });
 };
+
+export const handleEnemyDamage = damage => dispatch => {
+  dispatch({
+    type: "HANDLE_ENEMY_DAMAGE",
+    payload: damage
+  });
+};
