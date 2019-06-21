@@ -39,8 +39,6 @@ class CombatScreen extends React.Component {
         ]
       });
     } else {
-      this.props.handleEnemyDamage(randomAbility.damage);
-
       this.setState({
         playersTurn: true,
         combatLogEnemy: [
@@ -54,19 +52,15 @@ class CombatScreen extends React.Component {
   handlePlayerAbility = (e, abilityName, abilityDamage) => {
     if (this.state.playersTurn === true) {
       if (abilityDamage >= this.props.enemyReducer.enemies.enemy1.health) {
+        this.props.handleEnemyDamage(abilityDamage);
         this.setState({
-          enemies: {
-            enemy1: {
-              ...this.props.enemyReducer.enemies.enemy1,
-              health: 0
-            }
-          },
           combatLogPlayer: [
             ...this.state.combatLogPlayer,
             { name: abilityName, damage: abilityDamage }
           ]
         });
       } else {
+        this.props.handleEnemyDamage(abilityDamage);
         this.setState(
           {
             playersTurn: false,

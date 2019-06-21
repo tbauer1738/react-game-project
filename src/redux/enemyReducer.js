@@ -24,10 +24,28 @@ let initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case "HANDLE_ENEMY_DAMAGE":
-      return {
-        ...state,
-        health: state.enemies.enemy1.health - action.payload
-      };
+      if (action.payload >= state.enemies.enemy1.health) {
+        return {
+          ...state,
+          enemies: {
+            enemy1: {
+              ...state.enemies.enemy1,
+              health: 0
+            }
+          }
+        };
+      } else {
+        return {
+          ...state,
+          enemies: {
+            enemy1: {
+              ...state.enemies.enemy1,
+              health: state.enemies.enemy1.health - action.payload
+            }
+          }
+        };
+      }
+
     default:
       return state;
   }

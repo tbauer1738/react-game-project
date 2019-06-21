@@ -15,3 +15,10 @@ export const handleEnemyDamage = damage => dispatch => {
     payload: damage
   });
 };
+
+export const handlePlayerDamage = damage => dispatch => {
+  dispatch({
+    type: "PLAYER_DAMAGE_ACTION",
+    payload: damage
+  });
+};
