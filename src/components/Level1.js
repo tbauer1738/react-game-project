@@ -27,6 +27,14 @@ class Level1 extends React.Component {
     }
   };
 
+  enemyDead = e => {
+    if (this.props.enemies.enemy1.health === 0) {
+      this.setState({
+        inCombat: false
+      });
+    }
+  };
+
   enemyCollision = () => {
     if (
       (this.props.playerPosition[0] === this.props.enemies.enemy1.position[0]) &
@@ -48,7 +56,7 @@ class Level1 extends React.Component {
 
   render() {
     if (this.state.inCombat === true) {
-      return <CombatScreen />;
+      return <CombatScreen enemyDead={this.enemyDead()} />;
     } else {
       return (
         <div className="App">
@@ -95,24 +103,29 @@ class Level1 extends React.Component {
                 }}
               />
             </div>
-            <div
-              style={{
-                position: "absolute",
-                top: this.props.enemies.enemy1.position[1],
-                left: this.props.enemies.enemy1.position[0],
-                width: "46px",
-                height: "46px"
-              }}
-            >
-              <img
-                src={blueEnemy}
-                alt="an enemy"
+            {}
+            {this.props.enemies.enemy1.health === 0 ? (
+              <div />
+            ) : (
+              <div
                 style={{
+                  position: "absolute",
+                  top: this.props.enemies.enemy1.position[1],
+                  left: this.props.enemies.enemy1.position[0],
                   width: "46px",
                   height: "46px"
                 }}
-              />
-            </div>
+              >
+                <img
+                  src={blueEnemy}
+                  alt="an enemy"
+                  style={{
+                    width: "46px",
+                    height: "46px"
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       );

@@ -59,6 +59,8 @@ class CombatScreen extends React.Component {
             { name: abilityName, damage: abilityDamage }
           ]
         });
+      } else if (this.props.enemyReducer.enemies.enemy1.health === 0) {
+        this.props.enemyDead();
       } else {
         this.props.handleEnemyDamage(abilityDamage);
         this.setState(
