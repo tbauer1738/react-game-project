@@ -7,28 +7,15 @@ import blueEnemy from "../assets/blue_enemy.png";
 import CombatScreen from "../components/CombatScreen";
 
 const mapStateToProps = state => ({
-  ...state.playerReducer
+  ...state.playerReducer,
+  ...state.enemyReducer
 });
 
 class Level1 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inCombat: false,
-      enemies: {
-        enemy1: {
-          health: 100,
-          sprite: { blueEnemy },
-          position: [414, 138],
-          xpWorth: 50,
-          abilities: [
-            {
-              name: "struggle",
-              damage: 0
-            }
-          ]
-        }
-      }
+      inCombat: false
     };
   }
   doorDetection = () => {
@@ -42,8 +29,8 @@ class Level1 extends React.Component {
 
   enemyCollision = () => {
     if (
-      (this.props.playerPosition[0] === this.state.enemies.enemy1.position[0]) &
-      (this.props.playerPosition[1] === this.state.enemies.enemy1.position[1])
+      (this.props.playerPosition[0] === this.props.enemies.enemy1.position[0]) &
+      (this.props.playerPosition[1] === this.props.enemies.enemy1.position[1])
     ) {
       this.setState({
         ...this.state,
@@ -111,8 +98,8 @@ class Level1 extends React.Component {
             <div
               style={{
                 position: "absolute",
-                top: this.state.enemies.enemy1.position[1],
-                left: this.state.enemies.enemy1.position[0],
+                top: this.props.enemies.enemy1.position[1],
+                left: this.props.enemies.enemy1.position[0],
                 width: "46px",
                 height: "46px"
               }}

@@ -1,6 +1,7 @@
 let initialState = {
   enemies: {
     enemy1: {
+      position: [414, 138],
       health: 100,
       xpWorth: 50,
       abilities: [

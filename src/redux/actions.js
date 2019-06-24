@@ -22,3 +22,10 @@ export const handlePlayerDamage = damage => dispatch => {
     payload: damage
   });
 };
+
+export const handleNextLevel = () => dispatch => {
+  dispatch({
+    type: "HANDLE_NEXT_LEVEL",
+    payload: "next level pls"
+  });
+};
