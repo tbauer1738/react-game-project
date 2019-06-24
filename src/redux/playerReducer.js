@@ -28,7 +28,18 @@ export default (state = initialState, action) => {
         toon: action.payload.sprite
       };
     case "PLAYER_DAMAGE_ACTION":
-      return state;
+      if (action.payload >= state.health) {
+        return {
+          ...state,
+          health: 0
+        };
+      } else {
+        return {
+          ...state,
+          health: state.health - action.payload
+        };
+      }
+
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 let initialState = {
+  inCombat: false,
   enemies: {
     enemy1: {
       position: [414, 138],
@@ -28,6 +29,7 @@ export default (state = initialState, action) => {
       if (action.payload >= state.enemies.enemy1.health) {
         return {
           ...state,
+          inCombat: false,
           enemies: {
             enemy1: {
               ...state.enemies.enemy1,
@@ -46,7 +48,11 @@ export default (state = initialState, action) => {
           }
         };
       }
-
+    case "HANDLE_GO_TO_COMBAT":
+      return {
+        ...state,
+        inCombat: action.payload
+      };
     default:
       return state;
   }

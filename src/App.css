@@ -108,3 +108,8 @@ div.board {
   height: 10px;
   border-radius: 10px;
 }
+
+.combatLog {
+  max-height: 15em;
+  overflow: scroll;
+}

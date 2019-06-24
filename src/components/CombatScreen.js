@@ -4,14 +4,7 @@ import toon from "../assets/actual_toon.png";
 import toon2 from "../assets/toon2.png";
 import blueenemy from "../assets/blue_enemy.png";
 import { handleEnemyDamage } from "../redux/actions";
-
-const mapStateToProps = state => ({
-  ...state
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleEnemyDamage: damage => dispatch(handleEnemyDamage(damage))
-});
+import { handlePlayerDamage } from "../redux/actions";
 
 class CombatScreen extends React.Component {
   constructor(props) {
@@ -30,6 +23,7 @@ class CombatScreen extends React.Component {
     console.log("randomAbility: ", randomAbility);
 
     if (randomAbility.damage >= this.props.playerReducer.health) {
+      this.props.handlePlayerDamage(randomAbility.damage);
       console.log("Oh dear, you're dead!");
       this.setState({
         playersTurn: true,
@@ -39,6 +33,7 @@ class CombatScreen extends React.Component {
         ]
       });
     } else {
+      this.props.handlePlayerDamage(randomAbility.damage);
       this.setState({
         playersTurn: true,
         combatLogEnemy: [
@@ -51,16 +46,19 @@ class CombatScreen extends React.Component {
 
   handlePlayerAbility = (e, abilityName, abilityDamage) => {
     if (this.state.playersTurn === true) {
-      if (abilityDamage >= this.props.enemyReducer.enemies.enemy1.health) {
+      if (this.props.enemyReducer.enemies.enemy1.health === 0) {
+        console.log("dead");
+      } else if (
+        abilityDamage >= this.props.enemyReducer.enemies.enemy1.health
+      ) {
         this.props.handleEnemyDamage(abilityDamage);
+
         this.setState({
           combatLogPlayer: [
             ...this.state.combatLogPlayer,
             { name: abilityName, damage: abilityDamage }
           ]
         });
-      } else if (this.props.enemyReducer.enemies.enemy1.health === 0) {
-        this.props.enemyDead();
       } else {
         this.props.handleEnemyDamage(abilityDamage);
         this.setState(
@@ -83,8 +81,6 @@ class CombatScreen extends React.Component {
       }
     }
   };
-
-  handleDamage = () => {};
 
   render() {
     return (
@@ -169,6 +165,15 @@ class CombatScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleEnemyDamage: damage => dispatch(handleEnemyDamage(damage)),
+  handlePlayerDamage: damage => dispatch(handlePlayerDamage(damage))
+});
 
 export default connect(
   mapStateToProps,

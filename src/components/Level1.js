@@ -5,11 +5,7 @@ import { connect } from "react-redux";
 import door from "../assets/door.png";
 import blueEnemy from "../assets/blue_enemy.png";
 import CombatScreen from "../components/CombatScreen";
-
-const mapStateToProps = state => ({
-  ...state.playerReducer,
-  ...state.enemyReducer
-});
+import { handleGoToCombat } from "../redux/actions";
 
 class Level1 extends React.Component {
   constructor(props) {
@@ -27,23 +23,17 @@ class Level1 extends React.Component {
     }
   };
 
-  enemyDead = e => {
-    if (this.props.enemies.enemy1.health === 0) {
-      this.setState({
-        inCombat: false
-      });
-    }
-  };
-
+  //z position for different levels
   enemyCollision = () => {
     if (
       (this.props.playerPosition[0] === this.props.enemies.enemy1.position[0]) &
       (this.props.playerPosition[1] === this.props.enemies.enemy1.position[1])
     ) {
-      this.setState({
-        ...this.state,
-        inCombat: true
-      });
+      if (this.props.enemies.enemy1.health === 0) {
+        return;
+      } else {
+        this.props.handleGoToCombat();
+      }
     }
   };
 
@@ -55,8 +45,8 @@ class Level1 extends React.Component {
   }
 
   render() {
-    if (this.state.inCombat === true) {
-      return <CombatScreen enemyDead={this.enemyDead()} />;
+    if (this.props.inCombat === true) {
+      return <CombatScreen enemyDead={this.enemyDead} />;
     } else {
       return (
         <div className="App">
@@ -132,4 +122,17 @@ class Level1 extends React.Component {
     }
   }
 }
-export default connect(mapStateToProps)(Level1);
+
+const mapStateToProps = state => ({
+  ...state.playerReducer,
+  ...state.enemyReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleGoToCombat: () => dispatch(handleGoToCombat())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Level1);

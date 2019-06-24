@@ -5,12 +5,6 @@ import { LEFT, RIGHT, UP, DOWN } from "./helpers/constants";
 import CharacterCreation from "./components/CharacterCreation";
 import Level1 from "./components/Level1";
 
-const mapStateToProps = state => ({
-  ...state.gameReducer
-});
-
-const mapDispatchToProps = dispatch => ({});
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -81,6 +75,12 @@ class App extends React.Component {
     }
   }
 }
+
+const mapStateToProps = state => ({
+  ...state.gameReducer
+});
+
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(
   mapStateToProps,

@@ -29,3 +29,10 @@ export const handleNextLevel = () => dispatch => {
     payload: "next level pls"
   });
 };
+
+export const handleGoToCombat = () => dispatch => {
+  dispatch({
+    type: "HANDLE_GO_TO_COMBAT",
+    payload: true
+  });
+};
