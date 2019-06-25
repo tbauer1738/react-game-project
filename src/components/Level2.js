@@ -3,7 +3,7 @@ import toon from "../assets/actual_toon.png";
 import toon2 from "../assets/toon2.png";
 import { connect } from "react-redux";
 import door from "../assets/door.png";
-import blueEnemy from "../assets/blue_enemy.png";
+import greenEnemy from "../assets/green_enemy.png";
 import CombatScreen from "../components/CombatScreen";
 import { handleGoToCombat } from "../redux/actions";
 import { handleNextLevel } from "../redux/actions";
@@ -29,10 +29,10 @@ class Level2 extends React.Component {
   //z position for different levels
   enemyCollision = () => {
     if (
-      (this.props.playerPosition[0] === this.props.enemies.enemy1.position[0]) &
-      (this.props.playerPosition[1] === this.props.enemies.enemy1.position[1])
+      (this.props.playerPosition[0] === this.props.enemies.enemy2.position[0]) &
+      (this.props.playerPosition[1] === this.props.enemies.enemy2.position[1])
     ) {
-      if (this.props.enemies.enemy1.health === 0) {
+      if (this.props.enemies.enemy2.health === 0) {
         return;
       } else {
         this.props.handleGoToCombat();
@@ -98,21 +98,21 @@ class Level2 extends React.Component {
               />
             </div>
             {}
-            {this.props.enemies.enemy1.health === 0 ? (
+            {this.props.enemies.enemy2.health === 0 ? (
               <div />
             ) : (
               <div
                 style={{
                   position: "absolute",
-                  top: this.props.enemies.enemy1.position[1],
-                  left: this.props.enemies.enemy1.position[0],
-                  zIndex: this.props.enemies.enemy1.position[2],
+                  top: this.props.enemies.enemy2.position[1],
+                  left: this.props.enemies.enemy2.position[0],
+                  zIndex: this.props.enemies.enemy2.position[2],
                   width: "46px",
                   height: "46px"
                 }}
               >
                 <img
-                  src={blueEnemy}
+                  src={greenEnemy}
                   alt="an enemy"
                   style={{
                     width: "46px",

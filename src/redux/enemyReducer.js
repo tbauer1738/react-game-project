@@ -19,6 +19,25 @@ let initialState = {
           damage: 0
         }
       ]
+    },
+    enemy2: {
+      position: [46, 46, 2],
+      health: 100,
+      xpWorth: 50,
+      abilities: [
+        {
+          name: "Smack",
+          damage: 20
+        },
+        {
+          name: "Struggle",
+          damage: 0
+        },
+        {
+          name: "Punch",
+          damage: 25
+        }
+      ]
     }
   }
 };
@@ -31,6 +50,7 @@ export default (state = initialState, action) => {
           ...state,
           inCombat: false,
           enemies: {
+            ...state.enemies,
             enemy1: {
               ...state.enemies.enemy1,
               health: 0
@@ -41,6 +61,7 @@ export default (state = initialState, action) => {
         return {
           ...state,
           enemies: {
+            ...state.enemies,
             enemy1: {
               ...state.enemies.enemy1,
               health: state.enemies.enemy1.health - action.payload

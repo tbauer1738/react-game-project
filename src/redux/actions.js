@@ -36,10 +36,3 @@ export const handleGoToCombat = () => dispatch => {
     payload: true
   });
 };
-
-export const handleUpdateLevel = () => dispatch => {
-  dispatch({
-    type: "HANDLE_NEXT_LEVEL",
-    payload: "go to next level"
-  });
-};
