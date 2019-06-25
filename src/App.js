@@ -4,13 +4,14 @@ import { connect } from "react-redux";
 import { LEFT, RIGHT, UP, DOWN } from "./helpers/constants";
 import CharacterCreation from "./components/CharacterCreation";
 import Level1 from "./components/Level1";
+import Level2 from "./components/Level2";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       player: {
-        position: [0, 0]
+        position: [0, 0, this.props.level]
       }
     };
   }
@@ -51,7 +52,8 @@ class App extends React.Component {
         player: {
           position: [
             this.state.player.position[0] + dirObj.left,
-            this.state.player.position[1] + dirObj.top
+            this.state.player.position[1] + dirObj.top,
+            this.props.level
           ]
         }
       });
@@ -69,6 +71,8 @@ class App extends React.Component {
       switch (this.props.level) {
         case 1:
           return <Level1 playerPosition={this.state.player.position} />;
+        case 2:
+          return <Level2 playerPosition={this.state.player.position} />;
         default:
           return;
       }

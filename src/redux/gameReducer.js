@@ -10,6 +10,11 @@ export default (state = initialState, action) => {
         ...state,
         characterCreated: action.payload.bool
       };
+    case "HANDLE_NEXT_LEVEL":
+      return {
+        ...state,
+        level: state.level + 1
+      };
 
     default:
       return state;

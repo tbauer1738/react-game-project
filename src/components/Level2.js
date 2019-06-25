@@ -8,7 +8,7 @@ import CombatScreen from "../components/CombatScreen";
 import { handleGoToCombat } from "../redux/actions";
 import { handleNextLevel } from "../redux/actions";
 
-class Level1 extends React.Component {
+class Level2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -141,4 +141,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Level1);
+)(Level2);

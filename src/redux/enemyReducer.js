@@ -2,7 +2,7 @@ let initialState = {
   inCombat: false,
   enemies: {
     enemy1: {
-      position: [414, 138],
+      position: [414, 138, 1],
       health: 100,
       xpWorth: 50,
       abilities: [
