@@ -18,8 +18,9 @@ class Level2 extends React.Component {
 
   doorDetection = () => {
     if (
-      (this.props.playerPosition[0] === 506) &
-      (this.props.playerPosition[1] === 138)
+      (this.props.playerPosition[0] === 92) &
+      (this.props.playerPosition[1] === 46) &
+      (this.props.playerPosition[2] === 2)
     ) {
       this.props.handleNextLevel();
     }
@@ -81,8 +82,8 @@ class Level2 extends React.Component {
             <div
               style={{
                 position: "absolute",
-                top: 138,
-                left: 506,
+                top: 46,
+                left: 92,
                 width: "46px",
                 height: "46px"
               }}
