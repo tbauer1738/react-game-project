@@ -7,6 +7,7 @@ import greenEnemy from "../assets/green_enemy.png";
 import CombatScreen from "../components/CombatScreen";
 import { handleGoToCombat } from "../redux/actions";
 import { handleNextLevel } from "../redux/actions";
+import wall from "../assets/whole_wall.png";
 
 class Level2 extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Level2 extends React.Component {
   doorDetection = () => {
     if (
       (this.props.playerPosition[0] === 92) &
-      (this.props.playerPosition[1] === 46) &
+      (this.props.playerPosition[1] === 0) &
       (this.props.playerPosition[2] === 2)
     ) {
       this.props.handleNextLevel();
@@ -82,7 +83,7 @@ class Level2 extends React.Component {
             <div
               style={{
                 position: "absolute",
-                top: 46,
+                top: 0,
                 left: 92,
                 width: "46px",
                 height: "46px"
@@ -94,6 +95,42 @@ class Level2 extends React.Component {
                 style={{
                   width: "46px",
                   height: "46px"
+                }}
+              />
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 62,
+                width: "46px",
+                height: "46px"
+              }}
+            >
+              <img
+                src={wall}
+                alt="a wall"
+                style={{
+                  width: "32px",
+                  height: "96px"
+                }}
+              />
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 138,
+                width: "46px",
+                height: "46px"
+              }}
+            >
+              <img
+                src={wall}
+                alt="a wall"
+                style={{
+                  width: "32px",
+                  height: "96px"
                 }}
               />
             </div>

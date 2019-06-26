@@ -21,7 +21,7 @@ let initialState = {
       ]
     },
     enemy2: {
-      position: [46, 46, 2],
+      position: [92, 46, 2],
       health: 100,
       xpWorth: 50,
       abilities: [
