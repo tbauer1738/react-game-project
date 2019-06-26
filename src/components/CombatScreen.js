@@ -64,13 +64,7 @@ class CombatScreen extends React.Component {
         this.setState(
           {
             playersTurn: false,
-            enemies: {
-              enemy1: {
-                ...this.props.enemyReducer.enemies.enemy1,
-                health:
-                  this.props.enemyReducer.enemies.enemy1.health - abilityDamage
-              }
-            },
+
             combatLogPlayer: [
               ...this.state.combatLogPlayer,
               { name: abilityName, damage: abilityDamage }
