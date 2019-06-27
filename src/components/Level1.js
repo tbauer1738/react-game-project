@@ -26,7 +26,7 @@ class Level1 extends React.Component {
   };
 
   //z position for different levels
-  enemyCollision = () => {
+  enemyCollision = enemy1 => {
     if (
       (this.props.playerPosition[0] === this.props.enemies.enemy1.position[0]) &
       (this.props.playerPosition[1] === this.props.enemies.enemy1.position[1])
@@ -34,7 +34,7 @@ class Level1 extends React.Component {
       if (this.props.enemies.enemy1.health === 0) {
         return;
       } else {
-        this.props.handleGoToCombat();
+        this.props.handleGoToCombat(enemy1);
       }
     }
   };
