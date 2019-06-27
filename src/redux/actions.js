@@ -26,7 +26,7 @@ export const handlePlayerDamage = damage => dispatch => {
 export const handleNextLevel = () => dispatch => {
   dispatch({
     type: "HANDLE_NEXT_LEVEL",
-    payload: "next level pls"
+    payload: "Go to next Level"
   });
 };
 
@@ -34,5 +34,12 @@ export const handleGoToCombat = () => dispatch => {
   dispatch({
     type: "HANDLE_GO_TO_COMBAT",
     payload: true
+  });
+};
+
+export const handlePlayerMovement = (left, top, level) => dispatch => {
+  dispatch({
+    type: "HANDLE_PLAYER_MOVEMENT",
+    payload: { left, top, level }
   });
 };

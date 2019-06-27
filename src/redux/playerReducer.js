@@ -1,5 +1,6 @@
 let initialState = {
   name: "",
+  position: [0, 0, 1],
   toon: null,
   health: 100,
   xp: 0,
@@ -39,6 +40,15 @@ export default (state = initialState, action) => {
           health: state.health - action.payload
         };
       }
+    case "HANDLE_PLAYER_MOVEMENT":
+      return {
+        ...state,
+        position: [
+          action.payload.left,
+          action.payload.top,
+          action.payload.level
+        ]
+      };
 
     default:
       return state;

@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { connect } from "react-redux";
 import { LEFT, RIGHT, UP, DOWN } from "./helpers/constants";
+import { handlePlayerMovement } from "./redux/actions";
 import CharacterCreation from "./components/CharacterCreation";
 import Level1 from "./components/Level1";
 import Level2 from "./components/Level2";
@@ -9,11 +10,7 @@ import Level2 from "./components/Level2";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      player: {
-        position: [0, 0, this.props.level]
-      }
-    };
+    this.state = {};
   }
 
   handleKeyDown = e => {
@@ -39,24 +36,18 @@ class App extends React.Component {
   };
 
   handlePlayerMovement = dirObj => {
-    if ((this.state.player.position[1] <= 0) & (dirObj.top < 0)) {
+    if ((this.props.position[1] <= 0) & (dirObj.top < 0)) {
       return;
-    } else if ((this.state.player.position[1] >= 276) & (dirObj.top > 0)) {
+    } else if ((this.props.position[1] >= 276) & (dirObj.top > 0)) {
       return;
-    } else if ((this.state.player.position[0] <= 0) & (dirObj.left < 0)) {
+    } else if ((this.props.position[0] <= 0) & (dirObj.left < 0)) {
       return;
-    } else if ((this.state.player.position[0] >= 552) & (dirObj.left > 0)) {
+    } else if ((this.props.position[0] >= 552) & (dirObj.left > 0)) {
       return;
     } else {
-      this.setState({
-        player: {
-          position: [
-            this.state.player.position[0] + dirObj.left,
-            this.state.player.position[1] + dirObj.top,
-            this.props.level
-          ]
-        }
-      });
+      const left = this.props.position[0] + dirObj.left;
+      const top = this.props.position[1] + dirObj.top;
+      this.props.handlePlayerMovement(left, top, this.props.level);
     }
   };
 
@@ -70,9 +61,9 @@ class App extends React.Component {
     } else {
       switch (this.props.level) {
         case 1:
-          return <Level1 playerPosition={this.state.player.position} />;
+          return <Level1 playerPosition={this.props.position} />;
         case 2:
-          return <Level2 playerPosition={this.state.player.position} />;
+          return <Level2 playerPosition={this.props.position} />;
         default:
           return;
       }
@@ -81,10 +72,13 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.gameReducer
+  ...state.gameReducer,
+  ...state.playerReducer
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  handlePlayerMovement: (left, top) => dispatch(handlePlayerMovement(left, top))
+});
 
 export default connect(
   mapStateToProps,
