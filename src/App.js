@@ -36,18 +36,63 @@ class App extends React.Component {
   };
 
   handlePlayerMovement = dirObj => {
-    if ((this.props.position[1] <= 0) & (dirObj.top < 0)) {
-      return;
-    } else if ((this.props.position[1] >= 276) & (dirObj.top > 0)) {
-      return;
-    } else if ((this.props.position[0] <= 0) & (dirObj.left < 0)) {
-      return;
-    } else if ((this.props.position[0] >= 552) & (dirObj.left > 0)) {
-      return;
-    } else {
-      const left = this.props.position[0] + dirObj.left;
-      const top = this.props.position[1] + dirObj.top;
-      this.props.handlePlayerMovement(left, top, this.props.level);
+    switch (this.props.level) {
+      case 1:
+        if ((this.props.position[1] <= 0) & (dirObj.top < 0)) {
+          return;
+        } else if ((this.props.position[1] >= 276) & (dirObj.top > 0)) {
+          return;
+        } else if ((this.props.position[0] <= 0) & (dirObj.left < 0)) {
+          return;
+        } else if ((this.props.position[0] >= 552) & (dirObj.left > 0)) {
+          return;
+        } else {
+          const left = this.props.position[0] + dirObj.left;
+          const top = this.props.position[1] + dirObj.top;
+          this.props.handlePlayerMovement(left, top, this.props.level);
+        }
+        break;
+      case 2:
+        if ((this.props.position[1] <= 0) & (dirObj.top < 0)) {
+          return;
+        } else if ((this.props.position[1] >= 276) & (dirObj.top > 0)) {
+          return;
+        } else if ((this.props.position[0] <= 0) & (dirObj.left < 0)) {
+          return;
+        } else if ((this.props.position[0] >= 552) & (dirObj.left > 0)) {
+          return;
+        } else if (
+          (this.props.position[0] <= 184) &
+          (this.props.position[1] < 92) &
+          (dirObj.left < 0)
+        ) {
+          return;
+        } else if (
+          (this.props.position[0] === 138) &
+          (this.props.position[1] <= 92) &
+          (dirObj.top < 0)
+        ) {
+          return;
+        } else if (
+          (this.props.position[0] === 46) &
+          (this.props.position[1] <= 92) &
+          (dirObj.top < 0)
+        ) {
+          return;
+        } else if (
+          (this.props.position[0] === 0) &
+          (this.props.position[1] < 92) &
+          (dirObj.left > 0)
+        ) {
+          return;
+        } else {
+          const left = this.props.position[0] + dirObj.left;
+          const top = this.props.position[1] + dirObj.top;
+          this.props.handlePlayerMovement(left, top, this.props.level);
+        }
+        break;
+      default:
+        return;
     }
   };
 
