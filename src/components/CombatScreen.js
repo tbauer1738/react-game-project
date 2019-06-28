@@ -31,24 +31,28 @@ class CombatScreen extends React.Component {
     ];
 
     if (randomAbility.damage >= this.props.playerReducer.health) {
-      this.props.handlePlayerDamage(randomAbility.damage);
-      this.setState({
-        playersTurn: true,
-        combatLogEnemy: [
-          ...this.state.combatLogEnemy,
-          { name: randomAbility.name, damage: randomAbility.damage }
-        ]
-      });
-      this.handleDeath();
+      window.setTimeout(() => {
+        this.props.handlePlayerDamage(randomAbility.damage);
+        this.setState({
+          playersTurn: true,
+          combatLogEnemy: [
+            ...this.state.combatLogEnemy,
+            { name: randomAbility.name, damage: randomAbility.damage }
+          ]
+        });
+        this.handleDeath();
+      }, 1000);
     } else {
-      this.props.handlePlayerDamage(randomAbility.damage);
-      this.setState({
-        playersTurn: true,
-        combatLogEnemy: [
-          ...this.state.combatLogEnemy,
-          { name: randomAbility.name, damage: randomAbility.damage }
-        ]
-      });
+      window.setTimeout(() => {
+        this.props.handlePlayerDamage(randomAbility.damage);
+        this.setState({
+          playersTurn: true,
+          combatLogEnemy: [
+            ...this.state.combatLogEnemy,
+            { name: randomAbility.name, damage: randomAbility.damage }
+          ]
+        });
+      }, 1000);
     }
   };
 

@@ -12,10 +12,6 @@ let initialState = {
     {
       name: "Kick",
       damage: 30
-    },
-    {
-      name: "Block",
-      damage: 0
     }
   ]
 };
