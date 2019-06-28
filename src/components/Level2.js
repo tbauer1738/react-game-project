@@ -18,17 +18,19 @@ class Level2 extends React.Component {
   }
 
   doorDetection = () => {
+    const enemy = "enemy2";
     if (
       (this.props.playerPosition[0] === 92) &
       (this.props.playerPosition[1] === 0) &
       (this.props.playerPosition[2] === 2)
     ) {
-      this.props.handleNextLevel();
+      this.props.handleNextLevel(enemy);
     }
   };
 
   //z position for different levels
   enemyCollision = () => {
+    const enemy = "enemy2";
     if (
       (this.props.playerPosition[0] === this.props.enemies.enemy2.position[0]) &
       (this.props.playerPosition[1] === this.props.enemies.enemy2.position[1])
@@ -36,7 +38,7 @@ class Level2 extends React.Component {
       if (this.props.enemies.enemy2.health === 0) {
         return;
       } else {
-        this.props.handleGoToCombat();
+        this.props.handleGoToCombat(enemy);
       }
     }
   };
@@ -50,7 +52,12 @@ class Level2 extends React.Component {
 
   render() {
     if (this.props.inCombat === true) {
-      return <CombatScreen enemyDead={this.enemyDead} />;
+      return (
+        <CombatScreen
+          enemyDead={this.enemyDead}
+          enemy={this.props.inCombatWith}
+        />
+      );
     } else {
       return (
         <div className="App">
@@ -172,7 +179,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleGoToCombat: () => dispatch(handleGoToCombat()),
+  handleGoToCombat: enemy => dispatch(handleGoToCombat(enemy)),
   handleNextLevel: () => dispatch(handleNextLevel())
 });
 

@@ -3,28 +3,35 @@ import { connect } from "react-redux";
 import toon from "../assets/actual_toon.png";
 import toon2 from "../assets/toon2.png";
 import blueenemy from "../assets/blue_enemy.png";
+import greenenemy from "../assets/green_enemy.png";
 import { handleEnemyDamage } from "../redux/actions";
 import { handlePlayerDamage } from "../redux/actions";
+import DeathScreen from "./DeathScreen";
 
 class CombatScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isDead: false,
       playersTurn: true,
       combatLogPlayer: [],
       combatLogEnemy: []
     };
   }
 
+  handleDeath = () => {
+    this.setState({
+      isDead: true
+    });
+  };
+
   handleEnemyAbility = () => {
-    const randomAbility = this.props.enemyReducer.enemies.enemy1.abilities[
+    const randomAbility = this.props.enemyReducer.inCombatWith.abilities[
       Math.floor(Math.random() * 3)
     ];
-    console.log("randomAbility: ", randomAbility);
 
     if (randomAbility.damage >= this.props.playerReducer.health) {
       this.props.handlePlayerDamage(randomAbility.damage);
-      console.log("Oh dear, you're dead!");
       this.setState({
         playersTurn: true,
         combatLogEnemy: [
@@ -32,6 +39,7 @@ class CombatScreen extends React.Component {
           { name: randomAbility.name, damage: randomAbility.damage }
         ]
       });
+      this.handleDeath();
     } else {
       this.props.handlePlayerDamage(randomAbility.damage);
       this.setState({
@@ -45,38 +53,78 @@ class CombatScreen extends React.Component {
   };
 
   handlePlayerAbility = (e, abilityName, abilityDamage) => {
-    if (this.state.playersTurn === true) {
-      if (this.props.enemyReducer.enemies.enemy1.health === 0) {
-        console.log("dead");
-      } else if (
-        abilityDamage >= this.props.enemyReducer.enemies.enemy1.health
-      ) {
-        this.props.handleEnemyDamage(abilityDamage);
+    switch (this.props.enemyReducer.inCombatWith.name) {
+      case "enemy1":
+        if (this.state.playersTurn === true) {
+          if (this.props.enemyReducer.enemies.enemy1.health === 0) {
+            console.log("dead");
+          } else if (
+            abilityDamage >= this.props.enemyReducer.enemies.enemy1.health
+          ) {
+            this.props.handleEnemyDamage(abilityDamage);
 
-        this.setState({
-          combatLogPlayer: [
-            ...this.state.combatLogPlayer,
-            { name: abilityName, damage: abilityDamage }
-          ]
-        });
-      } else {
-        this.props.handleEnemyDamage(abilityDamage);
-        this.setState(
-          {
-            playersTurn: false,
+            this.setState({
+              combatLogPlayer: [
+                ...this.state.combatLogPlayer,
+                { name: abilityName, damage: abilityDamage }
+              ]
+            });
+          } else {
+            this.props.handleEnemyDamage(abilityDamage);
+            this.setState(
+              {
+                playersTurn: false,
 
-            combatLogPlayer: [
-              ...this.state.combatLogPlayer,
-              { name: abilityName, damage: abilityDamage }
-            ]
-          },
-          this.handleEnemyAbility
-        );
-      }
+                combatLogPlayer: [
+                  ...this.state.combatLogPlayer,
+                  { name: abilityName, damage: abilityDamage }
+                ]
+              },
+              this.handleEnemyAbility
+            );
+          }
+        }
+        break;
+      case "enemy2":
+        if (this.state.playersTurn === true) {
+          if (this.props.enemyReducer.enemies.enemy2.health === 0) {
+            console.log("dead");
+          } else if (
+            abilityDamage >= this.props.enemyReducer.enemies.enemy2.health
+          ) {
+            this.props.handleEnemyDamage(abilityDamage);
+
+            this.setState({
+              combatLogPlayer: [
+                ...this.state.combatLogPlayer,
+                { name: abilityName, damage: abilityDamage }
+              ]
+            });
+          } else {
+            this.props.handleEnemyDamage(abilityDamage);
+            this.setState(
+              {
+                playersTurn: false,
+
+                combatLogPlayer: [
+                  ...this.state.combatLogPlayer,
+                  { name: abilityName, damage: abilityDamage }
+                ]
+              },
+              this.handleEnemyAbility
+            );
+          }
+        }
+        break;
+      default:
+        return;
     }
   };
 
   render() {
+    if (this.state.isDead === true) {
+      return <DeathScreen />;
+    }
     return (
       <div className="combatScreen">
         {" "}
@@ -132,12 +180,19 @@ class CombatScreen extends React.Component {
           <div id="enemyHealthBar">
             <div
               style={{
-                width: this.props.enemyReducer.enemies.enemy1.health + "%"
+                width:
+                  this.props.enemyReducer.inCombatWith.name === "enemy1"
+                    ? this.props.enemyReducer.enemies.enemy1.health + "%"
+                    : this.props.enemyReducer.enemies.enemy2.health + "%"
               }}
             />
           </div>
           <img
-            src={blueenemy}
+            src={
+              this.props.enemyReducer.inCombatWith.name === "enemy1"
+                ? blueenemy
+                : greenenemy
+            }
             alt=""
             style={{
               width: "92px",
@@ -145,7 +200,7 @@ class CombatScreen extends React.Component {
             }}
           />
           <div className="abilities">
-            {this.props.enemyReducer.enemies.enemy1.abilities.map(ability => {
+            {this.props.enemyReducer.inCombatWith.abilities.map(ability => {
               return (
                 <div>
                   {ability.name}&nbsp; &nbsp; &nbsp; &nbsp;{" "}

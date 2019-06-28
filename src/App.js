@@ -85,6 +85,12 @@ class App extends React.Component {
           (dirObj.left > 0)
         ) {
           return;
+        } else if (
+          (this.props.position[0] === 92) &
+          (this.props.position[1] === 46) &
+          (dirObj.left > 0)
+        ) {
+          return;
         } else {
           const left = this.props.position[0] + dirObj.left;
           const top = this.props.position[1] + dirObj.top;

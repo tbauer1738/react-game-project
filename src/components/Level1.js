@@ -11,9 +11,7 @@ import { handleNextLevel } from "../redux/actions";
 class Level1 extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      inCombat: false
-    };
+    this.state = {};
   }
 
   doorDetection = () => {
@@ -26,7 +24,8 @@ class Level1 extends React.Component {
   };
 
   //z position for different levels
-  enemyCollision = enemy1 => {
+  enemyCollision = () => {
+    const enemy = "enemy1";
     if (
       (this.props.playerPosition[0] === this.props.enemies.enemy1.position[0]) &
       (this.props.playerPosition[1] === this.props.enemies.enemy1.position[1])
@@ -34,7 +33,7 @@ class Level1 extends React.Component {
       if (this.props.enemies.enemy1.health === 0) {
         return;
       } else {
-        this.props.handleGoToCombat(enemy1);
+        this.props.handleGoToCombat(enemy);
       }
     }
   };
@@ -48,7 +47,12 @@ class Level1 extends React.Component {
 
   render() {
     if (this.props.inCombat === true) {
-      return <CombatScreen enemyDead={this.enemyDead} />;
+      return (
+        <CombatScreen
+          enemyDead={this.enemyDead}
+          enemy={this.props.inCombatWith}
+        />
+      );
     } else {
       return (
         <div className="App">
@@ -134,7 +138,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleGoToCombat: () => dispatch(handleGoToCombat()),
+  handleGoToCombat: enemy => dispatch(handleGoToCombat(enemy)),
   handleNextLevel: () => dispatch(handleNextLevel())
 });
 

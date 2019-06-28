@@ -30,10 +30,10 @@ export const handleNextLevel = () => dispatch => {
   });
 };
 
-export const handleGoToCombat = () => dispatch => {
+export const handleGoToCombat = enemy => dispatch => {
   dispatch({
     type: "HANDLE_GO_TO_COMBAT",
-    payload: true
+    payload: enemy
   });
 };
 
