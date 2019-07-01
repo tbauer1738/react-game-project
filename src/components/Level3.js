@@ -8,6 +8,7 @@ import { handleGoToCombat } from "../redux/actions";
 import { handleNextLevel } from "../redux/actions";
 import wall from "../assets/whole_wall.png";
 import chest from "../assets/chest.png";
+import { foundChest } from "../redux/actions";
 
 class Level3 extends React.Component {
   constructor(props) {
@@ -18,10 +19,10 @@ class Level3 extends React.Component {
   }
 
   chestDetection = () => {
-    const chest = "chest2";
+    const chest = "chest3";
     if (
-      (this.props.playerPosition[0] === this.props.chests[1].position[0]) &
-      (this.props.playerPosition[1] === this.props.chests[1].position[1])
+      (this.props.playerPosition[0] === 92) &
+      (this.props.playerPosition[1] === 276)
     ) {
       this.props.foundChest(chest);
     }
@@ -44,6 +45,7 @@ class Level3 extends React.Component {
   componentDidMount() {
     window.onkeyup = e => {
       this.enemyCollision(e);
+      this.chestDetection(e);
     };
   }
 
@@ -628,7 +630,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleGoToCombat: enemy => dispatch(handleGoToCombat(enemy)),
-  handleNextLevel: level => dispatch(handleNextLevel(level))
+  handleNextLevel: level => dispatch(handleNextLevel(level)),
+  foundChest: chest => dispatch(foundChest(chest))
 });
 
 export default connect(

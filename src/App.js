@@ -178,6 +178,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("re-rendered");
     if (this.props.characterCreated === false) {
       return <CharacterCreation />;
     } else if (this.props.xp === 100) {

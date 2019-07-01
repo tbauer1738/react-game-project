@@ -41,7 +41,7 @@ class LevelUpScreen extends React.Component {
         return (
           <div className="App">
             <div>Level Up!</div>
-            <div>Would you like an new Ability?</div>
+            <div>Would you like a new Ability?</div>
             {this.state.rewardsL2.map(reward => {
               return (
                 <div

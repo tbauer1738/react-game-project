@@ -57,21 +57,24 @@ export default (state = initialState, action) => {
       return {
         ...state,
         xp: state.xp + action.payload
-      }
+      };
     case "HANDLE_NEW_ABILITY":
       return {
         ...state,
-        abilities: [...state.abilities, {
-          name: action.payload.name,
-          damage: action.payload.damage
-        }]
-      }
+        abilities: [
+          ...state.abilities,
+          {
+            name: action.payload.name,
+            damage: action.payload.damage
+          }
+        ]
+      };
     case "RESET_XP":
       return {
         ...state,
         xp: action.payload,
-        level: state.playerLevel + 1
-      }
+        playerLevel: state.playerLevel + 1
+      };
     default:
       return state;
   }

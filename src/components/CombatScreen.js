@@ -4,6 +4,7 @@ import toon from "../assets/actual_toon.png";
 import toon2 from "../assets/toon2.png";
 import blueenemy from "../assets/blue_enemy.png";
 import greenenemy from "../assets/green_enemy.png";
+import redenemy from "../assets/red_enemy.png";
 import { handleEnemyDamage } from "../redux/actions";
 import { handlePlayerDamage } from "../redux/actions";
 import { handleXPGain } from "../redux/actions";
@@ -214,39 +215,59 @@ class CombatScreen extends React.Component {
             );
           })}
         </div>
-        <div className="combatFrameRight">
-          <div id="enemyHealthBar">
-            <div
+        {this.props.enemyReducer.inCombatWith.name === "enemy3" ? (
+          <div className="combatFrameRight">
+            <div id="enemyHealthBar">
+              <div
+                style={{
+                  width: this.props.enemyReducer.enemies.enemy3.health + "%"
+                }}
+              />
+            </div>
+            <img
+              src={redenemy}
+              alt=""
               style={{
-                width:
-                  this.props.enemyReducer.inCombatWith.name === "enemy1"
-                    ? this.props.enemyReducer.enemies.enemy1.health + "%"
-                    : this.props.enemyReducer.enemies.enemy2.health + "%"
+                width: "92px",
+                height: "92px"
               }}
             />
           </div>
-          <img
-            src={
-              this.props.enemyReducer.inCombatWith.name === "enemy1"
-                ? blueenemy
-                : greenenemy
-            }
-            alt=""
-            style={{
-              width: "92px",
-              height: "92px"
-            }}
-          />
-          <div className="abilities">
-            {this.props.enemyReducer.inCombatWith.abilities.map(ability => {
-              return (
-                <div>
-                  {ability.name}&nbsp; &nbsp; &nbsp; &nbsp;{" "}
-                  {ability.damage.toString()}dmg <hr />
-                </div>
-              );
-            })}
+        ) : (
+          <div className="combatFrameRight">
+            <div id="enemyHealthBar">
+              <div
+                style={{
+                  width:
+                    this.props.enemyReducer.inCombatWith.name === "enemy1"
+                      ? this.props.enemyReducer.enemies.enemy1.health + "%"
+                      : this.props.enemyReducer.enemies.enemy2.health + "%"
+                }}
+              />
+            </div>
+            <img
+              src={
+                this.props.enemyReducer.inCombatWith.name === "enemy1"
+                  ? blueenemy
+                  : greenenemy
+              }
+              alt=""
+              style={{
+                width: "92px",
+                height: "92px"
+              }}
+            />
           </div>
+        )}
+        <div className="abilities">
+          {this.props.enemyReducer.inCombatWith.abilities.map(ability => {
+            return (
+              <div>
+                {ability.name}&nbsp; &nbsp; &nbsp; &nbsp;{" "}
+                {ability.damage.toString()}dmg <hr />
+              </div>
+            );
+          })}
         </div>
       </div>
     );
