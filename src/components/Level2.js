@@ -8,6 +8,7 @@ import CombatScreen from "../components/CombatScreen";
 import { handleGoToCombat } from "../redux/actions";
 import { handleNextLevel } from "../redux/actions";
 import wall from "../assets/whole_wall.png";
+import {handleXPGain } from "../redux/actions"
 
 class Level2 extends React.Component {
   constructor(props) {
@@ -28,13 +29,13 @@ class Level2 extends React.Component {
   };
 
   doorDetection = () => {
-    const enemy = "enemy2";
+    const level = 3
     if (
       (this.props.playerPosition[0] === 92) &
-      (this.props.playerPosition[1] === 0) &
-      (this.props.playerPosition[2] === 2)
+      (this.props.playerPosition[1] === 0)
     ) {
-      this.props.handleNextLevel(enemy);
+      this.props.handleXPGain(50);
+      this.props.handleNextLevel(level);
     }
   };
 
@@ -189,7 +190,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleGoToCombat: enemy => dispatch(handleGoToCombat(enemy)),
-  handleNextLevel: () => dispatch(handleNextLevel())
+  handleNextLevel: (level) => dispatch(handleNextLevel(level)),
+  handleXPGain: xp => dispatch(handleXPGain(xp))
 });
 
 export default connect(

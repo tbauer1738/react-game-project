@@ -6,6 +6,7 @@ import blueenemy from "../assets/blue_enemy.png";
 import greenenemy from "../assets/green_enemy.png";
 import { handleEnemyDamage } from "../redux/actions";
 import { handlePlayerDamage } from "../redux/actions";
+import {handleXPGain } from "../redux/actions"
 import DeathScreen from "./DeathScreen";
 
 class CombatScreen extends React.Component {
@@ -29,7 +30,6 @@ class CombatScreen extends React.Component {
     const randomAbility = this.props.enemyReducer.inCombatWith.abilities[
       Math.floor(Math.random() * 3)
     ];
-
     if (randomAbility.damage >= this.props.playerReducer.health) {
       window.setTimeout(() => {
         this.props.handlePlayerDamage(randomAbility.damage);
@@ -65,7 +65,7 @@ class CombatScreen extends React.Component {
             abilityDamage >= this.props.enemyReducer.enemies.enemy1.health
           ) {
             this.props.handleEnemyDamage(abilityDamage);
-
+            this.props.handleXPGain(this.props.enemyReducer.enemies.enemy1.xpWorth)
             this.setState({
               combatLogPlayer: [
                 ...this.state.combatLogPlayer,
@@ -95,7 +95,7 @@ class CombatScreen extends React.Component {
             abilityDamage >= this.props.enemyReducer.enemies.enemy2.health
           ) {
             this.props.handleEnemyDamage(abilityDamage);
-
+            this.props.handleXPGain(this.props.enemyReducer.enemies.enemy2.xpWorth)
             this.setState({
               combatLogPlayer: [
                 ...this.state.combatLogPlayer,
@@ -118,6 +118,36 @@ class CombatScreen extends React.Component {
           }
         }
         break;
+        case "enemy3":
+            if (this.state.playersTurn === true) {
+              if (this.props.enemyReducer.enemies.enemy3.health === 0) {
+              } else if (
+                abilityDamage >= this.props.enemyReducer.enemies.enemy3.health
+              ) {
+                this.props.handleEnemyDamage(abilityDamage);
+                this.props.handleXPGain(this.props.enemyReducer.enemies.enemy3.xpWorth)
+                this.setState({
+                  combatLogPlayer: [
+                    ...this.state.combatLogPlayer,
+                    { name: abilityName, damage: abilityDamage }
+                  ]
+                });
+              } else {
+                this.props.handleEnemyDamage(abilityDamage);
+                this.setState(
+                  {
+                    playersTurn: false,
+    
+                    combatLogPlayer: [
+                      ...this.state.combatLogPlayer,
+                      { name: abilityName, damage: abilityDamage }
+                    ]
+                  },
+                  this.handleEnemyAbility
+                );
+              }
+            }
+            break;
       default:
         return;
     }
@@ -223,7 +253,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleEnemyDamage: damage => dispatch(handleEnemyDamage(damage)),
-  handlePlayerDamage: damage => dispatch(handlePlayerDamage(damage))
+  handlePlayerDamage: damage => dispatch(handlePlayerDamage(damage)),
+  handleXPGain: xp => dispatch(handleXPGain(xp))
 });
 
 export default connect(

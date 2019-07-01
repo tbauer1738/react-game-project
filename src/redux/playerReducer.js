@@ -1,5 +1,6 @@
 let initialState = {
   name: "",
+  playerLevel: 1,
   position: [0, 0, 1],
   toon: null,
   health: 100,
@@ -47,11 +48,30 @@ export default (state = initialState, action) => {
         ]
       };
     case "FOUND_CHEST":
+      const amt = 100 - state.health;
       return {
         ...state,
-        foundChest: action.payload
+        health: state.health + amt
       };
-
+    case "HANDLE_XP_GAIN":
+      return {
+        ...state,
+        xp: state.xp + action.payload
+      }
+    case "HANDLE_NEW_ABILITY":
+      return {
+        ...state,
+        abilities: [...state.abilities, {
+          name: action.payload.name,
+          damage: action.payload.damage
+        }]
+      }
+    case "RESET_XP":
+      return {
+        ...state,
+        xp: action.payload,
+        level: state.playerLevel + 1
+      }
     default:
       return state;
   }

@@ -8,8 +8,8 @@ import CombatScreen from "../components/CombatScreen";
 import { handleGoToCombat } from "../redux/actions";
 import { handleNextLevel } from "../redux/actions";
 import { foundChest } from "../redux/actions";
+import {handleXPGain } from "../redux/actions"
 import chest from "../assets/chest.png";
-import NewAbility from "../components/NewAbility"
 
 class Level1 extends React.Component {
   constructor(props) {
@@ -29,11 +29,13 @@ class Level1 extends React.Component {
   };
 
   doorDetection = () => {
+    const level = 2
     if (
       (this.props.playerPosition[0] === 506) &
       (this.props.playerPosition[1] === 138)
     ) {
-      this.props.handleNextLevel();
+      this.props.handleXPGain(50);
+      this.props.handleNextLevel(level);
     }
   };
 
@@ -61,7 +63,6 @@ class Level1 extends React.Component {
   }
 
   render() {
-
     if (this.props.inCombat === true) {
       return (
         <CombatScreen
@@ -70,9 +71,6 @@ class Level1 extends React.Component {
         />
       );
     }else{
-      if(this.props.foundChest === "chest1"){
-        return <NewAbility />
-      }else{
       return (
         <div className="App">
           <div
@@ -166,7 +164,7 @@ class Level1 extends React.Component {
       )};
     }
   }
-}
+
 
 const mapStateToProps = state => ({
   ...state.playerReducer,
@@ -176,8 +174,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleGoToCombat: enemy => dispatch(handleGoToCombat(enemy)),
-  handleNextLevel: () => dispatch(handleNextLevel()),
-  foundChest: (chest) => dispatch(foundChest(chest))
+  handleNextLevel: (level) => dispatch(handleNextLevel(level)),
+  foundChest: (chest) => dispatch(foundChest(chest)),
+  handleXPGain: xp => dispatch(handleXPGain(xp))
 });
 
 export default connect(

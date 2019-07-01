@@ -6,6 +6,9 @@ import { handlePlayerMovement } from "./redux/actions";
 import CharacterCreation from "./components/CharacterCreation";
 import Level1 from "./components/Level1";
 import Level2 from "./components/Level2";
+import Level3 from "./components/Level3";
+import LevelUpScreen from "./components/LevelUpScreen";
+import {handleNextLevel} from "./redux/actions"
 
 class App extends React.Component {
   constructor(props) {
@@ -97,24 +100,99 @@ class App extends React.Component {
           this.props.handlePlayerMovement(left, top, this.props.level);
         }
         break;
+      case 3:
+          if ((this.props.position[1] <= 0) & (dirObj.top < 0)) {
+            return;
+          } else if ((this.props.position[1] >= 276) & (dirObj.top > 0)) {
+            return;
+          } else if ((this.props.position[0] <= 0) & (dirObj.left < 0)) {
+            return;
+          } else if ((this.props.position[0] >= 552) & (dirObj.left > 0)) {
+            return;
+          } else if (
+            (this.props.position[0] <= 276) &
+            (this.props.position[1] < 92) &
+            (dirObj.left < 0)
+          ){
+            return;
+          } else if (
+            (this.props.position[0] === 92) &
+            (this.props.position[1] < 184) &
+            (dirObj.left > 0)
+          ){
+            return;
+          } else if(
+            (this.props.position[0] === 92) &
+            (this.props.position[1] >= 0) &
+            (dirObj.left < 0)
+          ){
+            return;
+          } else if (
+            (this.props.position[0] > 92) &
+            (this.props.position[1] === 184) &
+            (dirObj.top > 0)
+          ) {
+            return;
+          }else if (
+            (this.props.position[0] > 92) &
+            (this.props.position[1] === 184) &
+            (dirObj.top < 0)
+          ) {
+            return;
+          }else if (
+            (this.props.position[0] < 92) &
+            (this.props.position[1] === 184) &
+            (dirObj.top < 0)
+          ) {
+            return;
+          } else if (
+            (this.props.position[0] === 46) &
+            (this.props.position[1] <= 92) &
+            (dirObj.top < 0)
+          ) {
+            return;
+          } else if (
+            (this.props.position[0] === 0) &
+            (this.props.position[1] < 92) &
+            (dirObj.left > 0)
+          ) {
+            return;
+          } else if (
+            (this.props.position[0] === 92) &
+            (this.props.position[1] === 46) &
+            (dirObj.left > 0)
+          ) {
+            return;
+          } else {
+            const left = this.props.position[0] + dirObj.left;
+            const top = this.props.position[1] + dirObj.top;
+            this.props.handlePlayerMovement(left, top, this.props.level);
+          }
+          break;
       default:
         return;
     }
   };
 
+
   componentDidMount() {
-    window.onkeydown = this.handleKeyDown;
+    window.onkeydown = this.handleKeyDown
   }
 
+  
   render() {
     if (this.props.characterCreated === false) {
       return <CharacterCreation />;
-    } else {
+    } else if(this.props.xp === 100){
+      return <LevelUpScreen />
+    }else{
       switch (this.props.level) {
         case 1:
           return <Level1 playerPosition={this.props.position} />;
         case 2:
           return <Level2 playerPosition={this.props.position} />;
+        case 3:
+          return <Level3 playerPosition={this.props.position} />;
         default:
           return;
       }
@@ -128,7 +206,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handlePlayerMovement: (left, top) => dispatch(handlePlayerMovement(left, top))
+  handlePlayerMovement: (left, top) => dispatch(handlePlayerMovement(left, top)),
 });
 
 export default connect(

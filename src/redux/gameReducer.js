@@ -1,18 +1,22 @@
 let initialState = {
-  characterCreated: false,
+  characterCreated: true,
   level: 1,
   chests: [
     {
       level: 1,
       position: [184, 184, 2],
-      contents: {
-        name: "Slash",
-        damage: 50
-      }
+      contents: 
+        "Full Heal"
+
     },
     {
       level: 2,
       position: [0, 0, 1],
+      contents: "Full Heal"
+    },
+    {
+      level: 3,
+      position: [276, 92, 1],
       contents: "Full Heal"
     }
   ]
@@ -28,7 +32,7 @@ export default (state = initialState, action) => {
     case "HANDLE_NEXT_LEVEL":
       return {
         ...state,
-        level: state.level + 1
+        level: action.payload
       };
     
     default:

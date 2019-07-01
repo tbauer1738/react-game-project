@@ -24,10 +24,10 @@ export const handlePlayerDamage = damage => dispatch => {
   });
 };
 
-export const handleNextLevel = () => dispatch => {
+export const handleNextLevel = (level) => dispatch => {
   dispatch({
     type: "HANDLE_NEXT_LEVEL",
-    payload: "Go to next Level"
+    payload: level
   });
 };
 
@@ -49,5 +49,26 @@ export const foundChest = (chest) => dispatch =>{
   dispatch({
     type: "FOUND_CHEST",
     payload: chest
+  })
+}
+
+export const handleXPGain = (xp) => dispatch => {
+  dispatch({
+    type: "HANDLE_XP_GAIN",
+    payload: xp
+  })
+}
+
+export const handleNewAbility = (name, damage) => dispatch => {
+  dispatch({
+    type: "HANDLE_NEW_ABILITY"  ,
+    payload: { name, damage }
+  })
+}
+
+export const resetXP = () => dispatch => {
+  dispatch({
+    type: "RESET_XP",
+    payload: 0
   })
 }
