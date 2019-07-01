@@ -59,7 +59,7 @@ class CharacterCreation extends React.Component {
         />
         <input
           type="button"
-          value="toon"
+          value="Avatar 1"
           onClick={e => this.handleSpriteSelection(e)}
         />
         <img
@@ -72,7 +72,7 @@ class CharacterCreation extends React.Component {
         />
         <input
           type="button"
-          value="toon2"
+          value="Avatar 2"
           onClick={e => this.handleSpriteSelection(e)}
         />
         <br />

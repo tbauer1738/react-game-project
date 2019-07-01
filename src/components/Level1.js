@@ -7,6 +7,7 @@ import blueEnemy from "../assets/blue_enemy.png";
 import CombatScreen from "../components/CombatScreen";
 import { handleGoToCombat } from "../redux/actions";
 import { handleNextLevel } from "../redux/actions";
+import chest from "../assets/chest.png";
 
 class Level1 extends React.Component {
   constructor(props) {

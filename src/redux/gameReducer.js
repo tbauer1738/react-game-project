@@ -1,6 +1,21 @@
 let initialState = {
   characterCreated: false,
-  level: 1
+  level: 1,
+  chests: [
+    {
+      level: 2,
+      position: [0, 0, 2],
+      contents: {
+        name: "Slash",
+        damage: 50
+      }
+    },
+    {
+      level: 1,
+      position: [0, 0, 1],
+      contents: "Full Heal"
+    }
+  ]
 };
 
 export default (state = initialState, action) => {
