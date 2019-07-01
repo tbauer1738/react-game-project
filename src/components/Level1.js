@@ -7,13 +7,26 @@ import blueEnemy from "../assets/blue_enemy.png";
 import CombatScreen from "../components/CombatScreen";
 import { handleGoToCombat } from "../redux/actions";
 import { handleNextLevel } from "../redux/actions";
+import { foundChest } from "../redux/actions";
 import chest from "../assets/chest.png";
+import NewAbility from "../components/NewAbility"
 
 class Level1 extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
   }
+
+  chestDetection = () => {
+    const chest = "chest1"
+    if (
+      (this.props.playerPosition[0] ===  this.props.chests[0].position[0]) &
+      (this.props.playerPosition[1] === this.props.chests[0].position[1])
+    ) {
+      this.props.foundChest(chest);
+    }
+  };
 
   doorDetection = () => {
     if (
@@ -24,7 +37,7 @@ class Level1 extends React.Component {
     }
   };
 
-  //z position for different levels
+ 
   enemyCollision = () => {
     const enemy = "enemy1";
     if (
@@ -43,10 +56,12 @@ class Level1 extends React.Component {
     window.onkeyup = e => {
       this.doorDetection(e);
       this.enemyCollision(e);
+      this.chestDetection(e);
     };
   }
 
   render() {
+
     if (this.props.inCombat === true) {
       return (
         <CombatScreen
@@ -54,7 +69,10 @@ class Level1 extends React.Component {
           enemy={this.props.inCombatWith}
         />
       );
-    } else {
+    }else{
+      if(this.props.foundChest === "chest1"){
+        return <NewAbility />
+      }else{
       return (
         <div className="App">
           <div
@@ -77,6 +95,24 @@ class Level1 extends React.Component {
               <img
                 src={this.props.toon === "toon" ? toon : toon2}
                 alt="toon"
+                style={{
+                  width: "46px",
+                  height: "46px"
+                }}
+              />
+            </div>
+            <div 
+             style={{
+                position: "absolute",
+                top: this.props.chests[0].position[0],
+                left: this.props.chests[0].position[1],
+                width: "46px",
+                height: "46px"
+              }}
+            >
+             <img
+                src={chest}
+                alt="chest"
                 style={{
                   width: "46px",
                   height: "46px"
@@ -127,7 +163,7 @@ class Level1 extends React.Component {
             )}
           </div>
         </div>
-      );
+      )};
     }
   }
 }
@@ -140,7 +176,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleGoToCombat: enemy => dispatch(handleGoToCombat(enemy)),
-  handleNextLevel: () => dispatch(handleNextLevel())
+  handleNextLevel: () => dispatch(handleNextLevel()),
+  foundChest: (chest) => dispatch(foundChest(chest))
 });
 
 export default connect(

@@ -1,3 +1,4 @@
+
 export const characterCreationAction = (bool, charName, sprite) => dispatch => {
   dispatch({
     type: "CHARACTER_CREATION_ACTION",
@@ -43,3 +44,10 @@ export const handlePlayerMovement = (left, top, level) => dispatch => {
     payload: { left, top, level }
   });
 };
+
+export const foundChest = (chest) => dispatch =>{
+  dispatch({
+    type: "FOUND_CHEST",
+    payload: chest
+  })
+}

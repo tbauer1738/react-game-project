@@ -30,7 +30,7 @@ let initialState = {
       abilities: [
         {
           name: "Smack",
-          damage: 20
+          damage: 30
         },
         {
           name: "Struggle",
@@ -38,7 +38,7 @@ let initialState = {
         },
         {
           name: "Punch",
-          damage: 25
+          damage: 35
         }
       ]
     }

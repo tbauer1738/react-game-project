@@ -4,6 +4,7 @@ let initialState = {
   toon: null,
   health: 100,
   xp: 0,
+  foundChest: "",
   abilities: [
     {
       name: "Punch",
@@ -44,6 +45,11 @@ export default (state = initialState, action) => {
           action.payload.top,
           action.payload.level
         ]
+      };
+    case "FOUND_CHEST":
+      return {
+        ...state,
+        foundChest: action.payload
       };
 
     default:

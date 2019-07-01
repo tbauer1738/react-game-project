@@ -17,6 +17,16 @@ class Level2 extends React.Component {
     };
   }
 
+  chestDetection = () => {
+    const chest = "chest2"
+    if (
+      (this.props.playerPosition[0] ===  this.props.chests[1].position[0]) &
+      (this.props.playerPosition[1] === this.props.chests[1].position[1])
+    ) {
+      this.props.foundChest(chest);
+    }
+  };
+
   doorDetection = () => {
     const enemy = "enemy2";
     if (
@@ -28,7 +38,6 @@ class Level2 extends React.Component {
     }
   };
 
-  //z position for different levels
   enemyCollision = () => {
     const enemy = "enemy2";
     if (
