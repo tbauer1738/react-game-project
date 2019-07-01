@@ -41,7 +41,7 @@ class CombatScreen extends React.Component {
           ]
         });
         this.handleDeath();
-      }, 1000);
+      }, 500);
     } else {
       window.setTimeout(() => {
         this.props.handlePlayerDamage(randomAbility.damage);
@@ -52,7 +52,7 @@ class CombatScreen extends React.Component {
             { name: randomAbility.name, damage: randomAbility.damage }
           ]
         });
-      }, 1000);
+      }, 500);
     }
   };
 
@@ -61,7 +61,6 @@ class CombatScreen extends React.Component {
       case "enemy1":
         if (this.state.playersTurn === true) {
           if (this.props.enemyReducer.enemies.enemy1.health === 0) {
-            console.log("dead");
           } else if (
             abilityDamage >= this.props.enemyReducer.enemies.enemy1.health
           ) {
@@ -92,7 +91,6 @@ class CombatScreen extends React.Component {
       case "enemy2":
         if (this.state.playersTurn === true) {
           if (this.props.enemyReducer.enemies.enemy2.health === 0) {
-            console.log("dead");
           } else if (
             abilityDamage >= this.props.enemyReducer.enemies.enemy2.health
           ) {
