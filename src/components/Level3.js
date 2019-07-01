@@ -7,7 +7,7 @@ import CombatScreen from "../components/CombatScreen";
 import { handleGoToCombat } from "../redux/actions";
 import { handleNextLevel } from "../redux/actions";
 import wall from "../assets/whole_wall.png";
-import chest from "../assets/chest.png"
+import chest from "../assets/chest.png";
 
 class Level3 extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class Level3 extends React.Component {
   }
 
   chestDetection = () => {
-    const chest = "chest2"
+    const chest = "chest2";
     if (
       (this.props.playerPosition[0] === this.props.chests[1].position[0]) &
       (this.props.playerPosition[1] === this.props.chests[1].position[1])
@@ -44,7 +44,6 @@ class Level3 extends React.Component {
   componentDidMount() {
     window.onkeyup = e => {
       this.enemyCollision(e);
-      this.doorDetection(e);
     };
   }
 
@@ -66,26 +65,26 @@ class Level3 extends React.Component {
               height: "350px"
             }}
           >
-              <div
-          style={{
-            position: "absolute",
-            top: 96,
-            left: 62,
-            width: "46px",
-            height: "46px"
-          }}
-        >
-          <img
-            src={wall}
-            alt="a wall"
-            style={{
-              width: "32px",
-              height: "96px"
-            }}
-          />
-        </div>
-        <div 
-             style={{
+            <div
+              style={{
+                position: "absolute",
+                top: 96,
+                left: 62,
+                width: "46px",
+                height: "46px"
+              }}
+            >
+              <img
+                src={wall}
+                alt="a wall"
+                style={{
+                  width: "32px",
+                  height: "96px"
+                }}
+              />
+            </div>
+            <div
+              style={{
                 position: "absolute",
                 top: this.props.chests[2].position[0],
                 left: this.props.chests[2].position[1],
@@ -93,7 +92,7 @@ class Level3 extends React.Component {
                 height: "46px"
               }}
             >
-             <img
+              <img
                 src={chest}
                 alt="chest"
                 style={{
@@ -266,8 +265,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -285,8 +283,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -304,11 +301,10 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
-            </div> 
+            </div>
             <div
               style={{
                 position: "absolute",
@@ -323,8 +319,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -342,8 +337,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -361,8 +355,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -380,11 +373,10 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
-            </div> 
+            </div>
             <div
               style={{
                 position: "absolute",
@@ -399,8 +391,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -418,8 +409,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -437,8 +427,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -456,8 +445,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -475,8 +463,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -494,8 +481,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -513,8 +499,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -532,8 +517,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -551,8 +535,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -570,11 +553,10 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
-            </div> 
+            </div>
             <div
               style={{
                 position: "absolute",
@@ -589,8 +571,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -608,8 +589,7 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
             </div>
@@ -627,15 +607,13 @@ class Level3 extends React.Component {
                 alt="a wall"
                 style={{
                   width: "32px",
-                  height: "96px",
-
+                  height: "96px"
                 }}
               />
-            
-            {}
-          
+
+              {}
+            </div>
           </div>
-        </div>
         </div>
       );
     }
@@ -650,7 +628,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleGoToCombat: enemy => dispatch(handleGoToCombat(enemy)),
-  handleNextLevel: (level) => dispatch(handleNextLevel(level))
+  handleNextLevel: level => dispatch(handleNextLevel(level))
 });
 
 export default connect(

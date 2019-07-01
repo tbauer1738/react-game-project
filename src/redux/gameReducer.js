@@ -1,13 +1,12 @@
 let initialState = {
-  characterCreated: true,
+  characterCreated: false,
+  finalLevel: false,
   level: 1,
   chests: [
     {
       level: 1,
       position: [184, 184, 2],
-      contents: 
-        "Full Heal"
-
+      contents: "Full Heal"
     },
     {
       level: 2,
@@ -30,11 +29,20 @@ export default (state = initialState, action) => {
         characterCreated: action.payload.bool
       };
     case "HANDLE_NEXT_LEVEL":
-      return {
-        ...state,
-        level: action.payload
-      };
-    
+      const nextLevel = action.payload;
+      if (nextLevel === 3) {
+        return {
+          ...state,
+          finalLevel: true,
+          level: nextLevel
+        };
+      } else {
+        return {
+          ...state,
+          level: nextLevel
+        };
+      }
+
     default:
       return state;
   }
